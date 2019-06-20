@@ -5,6 +5,15 @@ import kr.or.ddit.board.dao.IBoardDao;
 public class BoardServiceImpl implements IBoardService {
 
 	private IBoardDao boardDao; 	// property or field
+	private String name;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public BoardServiceImpl() {
 		// TODO Auto-generated constructor stub
