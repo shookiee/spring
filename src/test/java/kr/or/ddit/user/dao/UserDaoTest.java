@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 
+import kr.or.ddit.paging.model.PageVO;
 import kr.or.ddit.testenv.LogicTestEnv;
 import kr.or.ddit.user.model.UserVO;
 public class UserDaoTest extends LogicTestEnv {
@@ -34,6 +35,44 @@ public class UserDaoTest extends LogicTestEnv {
 		/***Then***/
 		assertNotNull(userList);
 		assertTrue(userList.size() >= 100);
+	}
+
+	
+	/**
+	 * Method : getUserTest
+	 * 작성자 : PC23
+	 * 변경이력 :
+	 * Method 설명 : 사용자 정보 조회 테스트
+	 */
+	@Test
+	public void getUserTest() {
+		/***Given***/
+		String userId = "brown";
+		
+		/***When***/
+		UserVO userVo = userDao.getUser(userId);
+		
+		/***Then***/
+		assertEquals("브라운", userVo.getName());
+		assertEquals("곰", userVo.getAlias());
+	}
+	
+	
+	/**
+	* Method : usersCntTest
+	* 작성자 : PC23
+	* 변경이력 :
+	* Method 설명 : 사용자 전체 수 조회 테스트
+	*/
+	@Test
+	public void usersCntTest() {
+		/***Given***/
+
+		/***When***/
+		int usersCnt = userDao.usersCnt();
+		
+		/***Then***/
+		assertEquals(106, usersCnt);
 	}
 	
 	
@@ -69,22 +108,47 @@ public class UserDaoTest extends LogicTestEnv {
 	
 	
 	/**
-	* Method : getUserTest
+	* Method : updateUserTest
 	* 작성자 : PC23
 	* 변경이력 :
-	* Method 설명 : 사용자 정보 조회 테스트
+	* Method 설명 : 사용자 정보 수정 테스트
 	*/
 	@Test
-	public void getUserTest() {
+	public void updateUserTest() {
 		/***Given***/
-		String userId = "brown";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		UserVO userVo = null;
+		
+		try {
+			userVo = new UserVO("수정쓰", "user13", "수정별명", "1234123", "대전광역시 중구 중앙로 76", "영민빌딩 2층 204호", "34940", sdf.parse("2019-05-31"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		/***When***/
+		int updateCnt = userDao.updateUser(userVo);
+				
+		/***Then***/
+		assertEquals(1, updateCnt);
+	}
+	
+	
+	/**
+	* Method : userPagingListTest
+	* 작성자 : PC23
+	* 변경이력 :
+	* Method 설명 : 사용자 페이징 리스트 조회 테스트
+	*/
+	@Test
+	public void userPagingListTest() {
+		/***Given***/
+		PageVO pageVo = new PageVO(1,  10);
 
 		/***When***/
-		UserVO userVo = userDao.getUser(userId);
-
+		List<UserVO> userList = userDao.userPagingList(pageVo);
+		
 		/***Then***/
-		assertEquals("브라운", userVo.getName());
-		assertEquals("곰", userVo.getAlias());
+		assertNotNull(userList);
+		assertEquals(10, userList.size());
 	}
-
 }
