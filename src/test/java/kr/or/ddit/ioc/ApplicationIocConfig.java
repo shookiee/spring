@@ -3,9 +3,9 @@ package kr.or.ddit.ioc;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import kr.or.ddit.board.dao.BoardDaoImpl;
+import kr.or.ddit.board.dao.BoardDao;
 import kr.or.ddit.board.dao.IBoardDao;
-import kr.or.ddit.board.service.BoardServiceImpl;
+import kr.or.ddit.board.service.BoardService;
 import kr.or.ddit.board.service.IBoardService;
 
 @Configuration
@@ -14,7 +14,7 @@ public class ApplicationIocConfig {
 //	<bean id="boardDao" class="kr.or.ddit.board.dao.BoardDaoImpl" />
 	@Bean
 	public IBoardDao boardDao() {	// 메서드 이름이 name이 됨
-		return new BoardDaoImpl();
+		return new BoardDao();
 	}
 	
 	
@@ -25,8 +25,8 @@ public class ApplicationIocConfig {
 			<property name="boardDao" ref="boardDao" />
 	</bean>*/
 	@Bean
-	public BoardServiceImpl boardService () {
-		BoardServiceImpl boardService = new BoardServiceImpl();
+	public BoardService boardService () {
+		BoardService boardService = new BoardService();
 		boardService.setName("brown");
 		boardService.setBoardDao(boardDao());
 		return boardService;

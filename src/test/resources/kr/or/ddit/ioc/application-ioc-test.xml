@@ -7,23 +7,23 @@
 
 	<!-- boardService를 등록하기 위해서는 boardDao 필요 -->
 	<!-- IBoardDao boardDao = new BoardDao(); -->
-	<bean id="boardDao" class="kr.or.ddit.board.dao.BoardDaoImpl" />
+	<bean id="boardDao" class="kr.or.ddit.board.dao.BoardDao" />
 
 
 	<!-- prototype scope boardDao -->
 	<!-- prototype scope : 요청을 할 때 마다 새로운 객체를 만들어서 준다 -->
-	<bean id="boardDaoPrototype" class="kr.or.ddit.board.dao.BoardDaoImpl" scope="prototype"/>
+	<bean id="boardDaoPrototype" class="kr.or.ddit.board.dao.BoardDao" scope="prototype"/>
 
 
 	<bean id="boardService"
-		class="kr.or.ddit.board.service.BoardServiceImpl" scope="singleton">
+		class="kr.or.ddit.board.service.BoardService" scope="singleton">
 		<!-- boardService의 field, property -->
 		<!-- setter injection -->
 		<property name="boardDao" ref="boardDao" />
 	</bean>
 
 	
-	<bean id="boardServiceConstructor" class="kr.or.ddit.board.service.BoardServiceImpl">
+	<bean id="boardServiceConstructor" class="kr.or.ddit.board.service.BoardService">
 		<!--생성자 주입 시 매개변수가 있는 생성자를 기술하는데, 
 			해당 클래스에 기본생성자가 없을 경우 오류가 난다.
 			그래서 기본생성자를 같이 기술해줘야 한다. -->
