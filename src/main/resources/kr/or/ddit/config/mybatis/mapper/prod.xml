@@ -4,8 +4,25 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="prod">
 <select id="prodList" parameterType="string" resultType="prodVo">
-SELECT  PROD_ID, PROD_NAME
+SELECT *
 FROM	PROD
 WHERE	PROD_LGU = #{prod_lgu}
+</select>
+
+<!--  Prod 전체 수 조회 -->
+<select id="prodCnt" resultType="int">
+SELECT COUNT(*)
+FROM PROD
+</select>
+
+<select id="prodPagingList" parameterType="pageVo" resultType="prodVo">
+SELECT *
+FROM
+	(SELECT A.*, ROWNUM RN
+	 FROM
+		(SELECT A.* 
+		 FROM    PROD A
+		 ORDER BY PROD_ID) A )
+WHERE RN &gt;= (#{page}-1)*#{pageSize}+1 AND RN &lt;= #{page}*#{pageSize}
 </select>
 </mapper>

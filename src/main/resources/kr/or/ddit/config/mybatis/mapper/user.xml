@@ -75,15 +75,15 @@
 	WHERE USERID = #{userId}
 	</delete>
 	
+	<!-- 유저 수정 -->
 	<update id="updateUser" parameterType="userVo">
 	UPDATE	USERS
 	SET		NAME = #{name}
 		  , ALIAS = #{alias}
-		  , PASS = #{pass}
 		  , ADDR1 = #{addr1}
 		  , ADDR2 = #{addr2}
 		  , ZIPCD = #{zipcd}
-		  , BIRTH = #{birth}
+		  , BIRTH = #{birth, jdbcType=DATE}
 		  <if test="path != null">
 		  , PATH = #{path, jdbcType=VARCHAR}
 		  , FILENAME = #{fileName, jdbcType=VARCHAR}

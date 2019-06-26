@@ -45,7 +45,7 @@ $(document).ready(function(){
 						<h2 class="sub-header">사용자 상세</h2>
 
 						<form id="frm" class="form-horizontal" role="form"
-						action="${cp }/uerModify" method="get">
+						action="${cp }/user/modify" method="get">
 	
 							<div class="form-group">
 								<label for="userNm" class="col-sm-2 control-label">사용자
@@ -59,8 +59,6 @@ $(document).ready(function(){
 								<label for="userNm" class="col-sm-2 control-label">사용자 아이디</label>
 								<div class="col-sm-10">
 									<label class="control-label">${userVo.userId }</label>
-									<!-- 							<input type="text" class="form-control" id="userId" name="userId" -->
-									<!-- 								placeholder="사용자 아이디"> -->
 								</div>
 							</div>
 
@@ -110,7 +108,7 @@ $(document).ready(function(){
 
 							<div class="form-group">
 								<div class="col-sm-offset-2 col-sm-10">
-								<a href="${cp }/userModify" id="updateBtn" class="btn btn-default pull-right" type="submit" class="btn btn-default">사용자 수정</a>
+								<a href="${cp }/user/modify?userId=${userVo.userId}" id="updateBtn" class="btn btn-default pull-right"  class="btn btn-default">사용자 수정</a>
 							</div>
 							</div>
 						</form>

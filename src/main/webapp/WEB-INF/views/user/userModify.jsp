@@ -84,7 +84,7 @@ $(document).ready(function(){
 						<h2 class="sub-header">사용자 정보 수정</h2>
 
 						<form id="frm" class="form-horizontal" role="form"
-							action="${cp }/userModify" method="post" enctype="multipart/form-data">
+							action="${cp }/user/modify" method="post" enctype="multipart/form-data">
 	
 							<div class="form-group">
 								<label for="userNm" class="col-sm-2 control-label">사용자
@@ -98,18 +98,19 @@ $(document).ready(function(){
 								<label for="userNm" class="col-sm-2 control-label">아이디</label>
 								<div class="col-sm-8">
 									<label>${userVo.userId }</label>
+									<input type="hidden" name="userId"  value="${userVo.userId }" />
 								</div>
 								<div class="col-sm-2">
 <!-- 								<button id="dupliChkBtn" type="button" class="btn btn-default pull-right">중복체크</button> -->
 								</div>
 							</div>
 							
-							<div class="form-group">
-								<label for="userNm" class="col-sm-2 control-label">비밀번호</label>
-								<div class="col-sm-10">
-									<input type="password" class="form-control" id="pass" name="pass" placeholder="사용자 비밀번호" value="${userVo.pass }">
-								</div>
-							</div>
+<!-- 							<div class="form-group"> -->
+<!-- 								<label for="userNm" class="col-sm-2 control-label">비밀번호</label> -->
+<!-- 								<div class="col-sm-10"> -->
+<%-- 									<input type="password" class="form-control" id="pass" name="pass" placeholder="사용자 비밀번호" value="${userVo.pass }"> --%>
+<!-- 								</div> -->
+<!-- 							</div> -->
 
 							<div class="form-group">
 								<label for="userNm" class="col-sm-2 control-label">이름</label>

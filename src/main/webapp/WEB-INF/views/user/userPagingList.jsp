@@ -63,7 +63,7 @@
 						<h2 class="sub-header">사용자</h2>
 						
 						<!-- 사용자 상세조회 : userId가 필요 -->
-						<form id="frm" method="get" action="${cp }/user">
+						<form id="frm" method="get" action="${cp }/user/user">
 							<input type="hidden" id="userId" name="userId"/>
 						</form>
 						
@@ -89,7 +89,7 @@
 							</table>
 						</div>
 
-						<a href="${cp }/userForm" class="btn btn-default pull-right">사용자 등록</a>
+						<a href="${cp }/user/form" class="btn btn-default pull-right">사용자 등록</a>
 						<div class="text-center">
 							<ul class="pagination">
 
@@ -106,7 +106,7 @@
 									</c:when>
 									<c:otherwise>
 										<li>
-											<a href="${cp }/userPagingList?page=${pageVo.page -1}&pageSize=${pageVo.pageSize}">«</a>
+											<a href="${cp }/user/pagingList?page=${pageVo.page -1}&pageSize=${pageVo.pageSize}">«</a>
 										</li>
 									</c:otherwise>
 								</c:choose>
@@ -118,7 +118,7 @@
 									 			<li class="active"><span>${i }</span></li>
 									 			</c:when>
 											<c:otherwise>
-												<li><a href="${cp }/userPagingList?page=${i}&pageSize=${pageVo.pageSize}">${i }</a></li>
+												<li><a href="${cp }/user/pagingList?page=${i}&pageSize=${pageVo.pageSize}">${i }</a></li>
 											</c:otherwise>
 										</c:choose>
 									</li>
@@ -130,7 +130,7 @@
 										</c:when>
 	
 										<c:otherwise>
-											<li><a href="${cp }/userPagingList?page=${pageVo.page + 1}&pageSize=${pageVo.pageSize}">»</a></li>
+											<li><a href="${cp }/user/pagingList?page=${pageVo.page + 1}&pageSize=${pageVo.pageSize}">»</a></li>
 										</c:otherwise>								
 									</c:choose>
 							</ul>
