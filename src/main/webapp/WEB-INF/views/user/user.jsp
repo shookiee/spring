@@ -23,8 +23,9 @@
 
 <script>
 $(document).ready(function(){
-
-	
+	<c:if test="${not empty msg}">
+		alert("${msg}");
+	</c:if>
 })
 </script>
 
