@@ -38,7 +38,10 @@ public class ProdController {
 	
 	@RequestMapping("/prod")
 	public String prod(String prod_id, Model model) {
+		ProdVO prodVo = prodService.getProd(prod_id);
+		String prod_name = prodVo.getProd_name();
 		
+		model.addAttribute("prod_name", prod_name);
 		
 		return "prod/prod";
 	}

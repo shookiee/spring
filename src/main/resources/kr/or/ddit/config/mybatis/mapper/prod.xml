@@ -25,4 +25,12 @@ FROM
 		 ORDER BY PROD_ID) A )
 WHERE RN &gt;= (#{page}-1)*#{pageSize}+1 AND RN &lt;= #{page}*#{pageSize}
 </select>
+
+<select id="getProd" parameterType="string" resultType="prodVo">
+SELECT *
+FROM		PROD
+WHERE	PROD_ID = #{prod_id}
+
+</select>
+
 </mapper>

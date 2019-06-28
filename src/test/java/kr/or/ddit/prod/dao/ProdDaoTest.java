@@ -76,4 +76,23 @@ public class ProdDaoTest extends LogicTestEnv {
 		assertEquals(10, prodList.size());
 	}
 
+	
+	/**
+	* Method : getProdTest
+	* 작성자 : PC23
+	* 변경이력 :
+	* Method 설명 :	특정 Prod 조회 테스트
+	*/
+	@Test
+	public void getProdTest() {
+		/***Given***/
+		String prod_id = "P101000001";
+
+		/***When***/
+		ProdVO prodVo = prodDao.getProd(prod_id);
+		
+		/***Then***/
+		assertNotNull(prodVo);
+		assertEquals("모니터 삼성전자15인치칼라", prodVo.getProd_name());
+	}
 }

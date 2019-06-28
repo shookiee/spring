@@ -77,5 +77,26 @@ public class ProdServiceTest extends LogicTestEnv {
 		assertNotNull(prodList);
 		assertEquals(10, prodList.size());
 		assertEquals(8, paginationSize);
+		
+	}
+	
+	
+	/**
+	* Method : getProdTest
+	* 작성자 : PC23
+	* 변경이력 :
+	* Method 설명 : 특정 Prod 조회 테스트
+	*/
+	@Test
+	public void getProdTest() {
+		/***Given***/
+		String prod_id = "P101000002";
+
+		/***When***/
+		ProdVO prodVo = prodService.getProd(prod_id);
+		
+		/***Then***/
+		assertNotNull(prodVo);
+		assertEquals("모니터 삼성전자17인치칼라", prodVo.getProd_name());
 	}
 }

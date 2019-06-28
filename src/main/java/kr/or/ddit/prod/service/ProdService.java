@@ -68,4 +68,18 @@ public class ProdService implements IProdService {
 		return resultMap;
 	}
 
+
+	/**
+	* Method : getProd
+	* 작성자 : PC23
+	* 변경이력 :
+	* @param prod_id
+	* @return
+	* Method 설명 : 특정 Prod 조회
+	*/
+	@Override
+	public ProdVO getProd(String prod_id) {
+		return prodDao.getProd(prod_id);
+	}
+
 }

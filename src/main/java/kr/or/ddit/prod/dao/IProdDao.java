@@ -37,4 +37,15 @@ public interface IProdDao {
 	* Method 설명 : Prod 페이징 리스트 조회
 	*/
 	List<ProdVO> prodPagingList(PageVO pageVo);
+	
+	
+	/**
+	* Method : getProd
+	* 작성자 : PC23
+	* 변경이력 :
+	* @param prod_id
+	* @return
+	* Method 설명 : 특정 Prod 정보 조회
+	*/
+	ProdVO getProd(String prod_id);
 }

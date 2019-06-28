@@ -57,4 +57,18 @@ public class ProdDao implements IProdDao {
 		return sqlSession.selectList("prod.prodPagingList", pageVo);
 	}
 
+
+	/**
+	* Method : getProd
+	* 작성자 : PC23
+	* 변경이력 :
+	* @param prod_id
+	* @return
+	* Method 설명 : 특정 Prod 정보 조회
+	*/
+	@Override
+	public ProdVO getProd(String prod_id) {
+		return sqlSession.selectOne("prod.getProd", prod_id);
+	}
+
 }
