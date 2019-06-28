@@ -7,6 +7,7 @@
       <li class="active"><a href="${cp }/main">Main<span class="sr-only">(current)</span></a></li>
       <li class="active"><a href="${cp }/user/list">사용자리스트</a></li>
       <li class="active"><a href="${cp }/user/pagingList">유저페이징리스트</a>
+      <li class="active"><a href="${cp }/user/pagingListAjaxView">유저페이징리스트(ajax)</a>
       <li class="active"><a href="${cp }/lprod/pagingList">lprod페이징리스트</a>
       <li class="active"><a href="${cp }/prod/pagingList">prod페이징리스트</a>
    </ul>

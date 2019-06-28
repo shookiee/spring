@@ -2,6 +2,8 @@ package kr.or.ddit.view;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
@@ -25,16 +27,20 @@ public class ProfileView implements View {
 
 	@Override		
 	public void render(Map<String, ?> model, HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+			 {
 		
 		logger.debug("profileView.render()");
 		
 		UserVO userVo = (UserVO) model.get("userVo");
 		
-		// path정보로 file을 읽어들여서 
-		ServletOutputStream sos = response.getOutputStream();
-		FileInputStream fis = null;
-		String filePath = null;		
+		ServletOutputStream sos = null;
+		try {
+			sos = response.getOutputStream();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		FileInputStream fis = null; 
+		String filePath = null;	
 			
 		// 사용자가 업로드한 파일이 존재할 경우 : path
 		if(userVo.getPath() != null) {
@@ -49,18 +55,24 @@ public class ProfileView implements View {
 		}
 			
 		File file = new File(filePath);
-		fis = new FileInputStream(file);
-			
-		int len = 0;
-		byte[] buffer = new byte[512];
-			
-		// response 객체에 스트림으로 써준다
-		while((len=fis.read(buffer, 0, 512)) != -1){
-			sos.write(buffer);
+		try {
+			fis = new FileInputStream(file);
+			int len = 0;
+			byte[] buffer = new byte[512];
+			while((len=fis.read(buffer, 0, 512)) != -1){
+				sos.write(buffer);
+			}
+			fis.close();
+			sos.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 			
-		fis.close();
-		sos.close();
+			
+		// response 객체에 스트림으로 써준다
+			
 	}
 
 }

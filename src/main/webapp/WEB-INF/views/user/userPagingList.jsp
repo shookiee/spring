@@ -15,6 +15,7 @@
 		// 사용자 tr 태그 이벤트 등록
 		$(".userTr").on("click", function() {
 			console.log("userTr click");
+// 			alert($(this).find(".userId").text())
 			//userId를 획득하는 방법
 			// 			$(this).find(".userId").text();
 			// 			$(this).data("userid");
@@ -53,8 +54,7 @@
 
 				<c:forEach items="${userList }" var="user" varStatus="status">
 					<tr class="userTr" data-userid="${user.userId }">
-						<td class="userId">
-							<%-- ${status.index}/${status.count}/--%>${user.userId }</td>
+						<td class="userId">${user.userId }</td>
 						<td>${user.name }</td>
 						<td>${user.alias }</td>
 						<td></td>

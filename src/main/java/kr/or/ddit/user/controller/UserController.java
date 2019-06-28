@@ -114,6 +114,33 @@ public class UserController {
 	
 	
 	/**
+	 * Method : pagingListAjax
+	 * 작성자 : PC23
+	 * 변경이력 :
+	 * @return
+	 * Method 설명 : 사용자 페이징 리스트 ajax 처리
+	 */
+	@RequestMapping("/pagingListAjax")
+	public String pagingListAjax(PageVO pageVo, Model model) {	
+		logger.debug("pageVO : {} ", pageVo);
+		model.addAttribute("data", userService.userPagingList(pageVo));
+		
+		return "jsonView";
+	}
+	
+	
+
+	
+	
+	@RequestMapping("/pagingListAjaxView")
+	public  String pagingListAjaxView() {
+		
+		
+		
+		return "tiles.pagingListAjaxView";
+	}
+	
+	/**
 	* Method : user
 	* 작성자 : PC23
 	* 변경이력 :
@@ -124,7 +151,7 @@ public class UserController {
 	*/
 	@RequestMapping("/user")
 	public String user(String userId, Model model) {
-		
+		logger.debug("userController userId() : {} ", userId);
 		UserVO userVo = userService.getUser(userId);
 		model.addAttribute("userVo", userVo);
 		
