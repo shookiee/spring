@@ -41,6 +41,8 @@
 			//#frm을 이용하여 submit();
 			$("#frm").submit();
 		})
+	
+		
 	})
 	
 
@@ -61,6 +63,7 @@
 				<div class="row">
 					<div class="col-sm-8 blog-main">
 						<h2 class="sub-header">사용자</h2>
+						
 						
 						<!-- 사용자 상세조회 : userId가 필요 -->
 						<form id="frm" method="get" action="${cp }/user/user">
@@ -89,8 +92,16 @@
 							</table>
 						</div>
 
-						<a href="${cp }/user/form" class="btn btn-default pull-right">사용자 등록</a>
+						<form id="downFrm"  action="${cp }/user/userListExcel" >
+							<button type="submit" id="downBtn"  class="btn btn-default pull-right">엑셀다운</button>
+							<input type="hidden" id="filename" name="filename" value="userList">
+						</form>
+						<a href="${cp }/user/form" class="btn btn-default pull-right">사용자 등록</a> 
+
+						
 						<div class="text-center">
+
+
 							<ul class="pagination">
 
 							<%-- 	<%
@@ -134,6 +145,7 @@
 										</c:otherwise>								
 									</c:choose>
 							</ul>
+							
 						</div>
 					</div>
 				</div>

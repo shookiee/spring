@@ -264,7 +264,7 @@ public class UserControllerTest extends ControllerTestEnv{
 				.param("zipcd", "34940")
 				.param("birth", "2019-05-31")
 				.param("pass", "userTest1234"))
-				.andExpect(view().name("redirect:/user/user?userId=user14"));
+				.andExpect(view().name("redirect:/user/user"));
 
 		/***Then***/
 		

@@ -3,12 +3,18 @@ package kr.or.ddit.user.model;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.validation.constraints.Size;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 
 public class UserVO {
+	@Size(min=2)
 	private String name;
+	
+	@Size(min=4)
 	private String userId;
+	
 	private String alias;
 	private String pass;
 	private String addr1;
@@ -41,9 +47,13 @@ public class UserVO {
 
 	}
 	
-	public String getBirthStr() {
+	public String getBirthStr(){
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		return sdf.format(this.birth);
+	      
+	     if(birth == null){
+	        return "";
+	     }
+	     return sdf.format(birth);  //date타입 String 으로 변환  (sdf.parse() - String 형태를 date타입으로 변환)
 	}
 
 	public void setBirthStr(String birthStr) {

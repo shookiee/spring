@@ -10,6 +10,7 @@
     FROM	USERS
     ORDER BY USERID
   </select>
+  
   <!--  특정 사용자 조회 -->
   <select id="getUser" parameterType="String" resultType="userVo">
   	SELECT	* 

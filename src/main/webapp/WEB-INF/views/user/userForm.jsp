@@ -4,6 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -98,6 +99,7 @@ $(document).ready(function(){
 								<label for="userNm" class="col-sm-2 control-label">아이디</label>
 								<div class="col-sm-8">
 									<input type="text" class="form-control" id="userId" name="userId" placeholder="사용자 아이디" value="${param.userId }">
+									<form:errors path="userVO.userId"/>
 								</div>
 								<div class="col-sm-2">
 <!-- 								<button id="dupliChkBtn" type="button" class="btn btn-default pull-right">중복체크</button> -->
@@ -115,6 +117,7 @@ $(document).ready(function(){
 								<label for="userNm" class="col-sm-2 control-label">이름</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="name" name="name" placeholder="사용자 이름" value="${param.name }">
+									<form:errors path="userVO.name"/>
 								</div>
 							</div>
 

@@ -9,6 +9,7 @@
 		<typeAlias alias="pageVo" type="kr.or.ddit.paging.model.PageVO"/>
 		<typeAlias alias="lprodVo" type="kr.or.ddit.lprod.model.LprodVO"/>
 		<typeAlias alias="prodVo" type="kr.or.ddit.prod.model.ProdVO"/>
+		<typeAlias alias="buyerVo" type="kr.or.ddit.buyer.model.BuyerVO"/>
 	</typeAliases>
 
 
@@ -16,6 +17,7 @@
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/user.xml" />
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/lprod.xml" />
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/prod.xml" />
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/buyer.xml" />
 	</mappers>
 
 </configuration>

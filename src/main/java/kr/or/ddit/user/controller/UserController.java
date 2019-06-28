@@ -3,6 +3,7 @@ package kr.or.ddit.user.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -12,6 +13,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +30,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import kr.or.ddit.encrypt.kisa.sha256.KISA_SHA256;
 import kr.or.ddit.paging.model.PageVO;
 import kr.or.ddit.user.model.UserVO;
+import kr.or.ddit.user.model.UserVOValidator;
 import kr.or.ddit.user.service.IUserService;
 import kr.or.ddit.util.PartUtil;
 
@@ -54,6 +57,26 @@ public class UserController {
 		model.addAttribute("userList", userService.userList());
 		
 		return "user/userList";
+	}
+	
+	
+	@RequestMapping("/userListExcel")
+	public String userListExcel(Model model, String filename) {
+		
+		List<String> header = new ArrayList<String>();
+		header.add("사용자 ID");
+		header.add("사용자명");
+		header.add("사용자 별명");
+		header.add("주소1");
+		header.add("주소2");
+		header.add("우편번호");
+		header.add("생일");
+		
+		model.addAttribute("filename", filename);
+		model.addAttribute("header", header);
+		model.addAttribute("data", userService.userList());
+		
+		return "userExcelView";
 	}
 	
 	
@@ -110,6 +133,25 @@ public class UserController {
 	
 	
 	/**
+	* Method : userJason
+	* 작성자 : PC23
+	* 변경이력 :
+	* @param userId
+	* @param model
+	* @return
+	* Method 설명 : 사용자 정보 json 응답 
+	*/
+	@RequestMapping("/userJason")
+	public String userJason(String userId, Model model) {
+		
+		UserVO userVo = userService.getUser(userId);
+		model.addAttribute("userVo", userVo);
+		
+		return "jsonView";		// bean name
+	}
+	
+	
+	/**
 	* Method : userForm
 	* 작성자 : PC23
 	* 변경이력 :
@@ -132,8 +174,66 @@ public class UserController {
 	* @return
 	* Method 설명 : 사용자 등록
 	*/
+//	@RequestMapping(path ="/form", method=RequestMethod.POST)
+	public String userForm(UserVO userVo, BindingResult result, MultipartFile profile, Model model)  { // BindingResult는 무조건 value객체 뒤에!
+		
+		new UserVOValidator().validate(userVo, result);
+		if(result.hasErrors()) {
+			return "user/userForm";
+		}
+		
+		String viewName = "";
+		
+		UserVO dbUser = userService.getUser(userVo.getUserId());
+		
+		if(dbUser == null) {
+		
+			if(profile.getSize() > 0) {
+				String filename= profile.getOriginalFilename();
+				String ext = PartUtil.getExt(filename);
+				
+				String uploadPath = PartUtil.getUploadPath();
+				String filePath = uploadPath + File.separator  + UUID.randomUUID().toString() + ext;
+				userVo.setPath(filePath);
+				userVo.setFileName(filename);
+				
+				try {
+					profile.transferTo(new File(filePath));
+				} catch (IllegalStateException | IOException e) {
+					e.printStackTrace();
+				}
+			
+			}
+			userVo.setPass(KISA_SHA256.encrypt(userVo.getPass()));
+			int insertCnt = userService.insertUser(userVo);
+			
+			if(insertCnt ==1)
+				viewName = "redirect:/user/pagingList";
+			} else {
+				model.addAttribute("msg", "이미 존재하는 사용자 입니다.");
+				viewName = userForm();
+			}
+		
+		return viewName;
+	}
+	
+	
+	/**
+	* Method : userFormJsr
+	* 작성자 : PC23
+	* 변경이력 :
+	* @param userVo
+	* @param file
+	* @param model
+	* @return
+	* Method 설명 : 사용자 등록
+	*/
 	@RequestMapping(path ="/form", method=RequestMethod.POST)
-	public String userForm(UserVO userVo, MultipartFile profile, Model model)  {
+	public String userFormJsr(@Valid UserVO userVo, BindingResult result, MultipartFile profile, Model model)  { // BindingResult는 무조건 value객체 뒤에!
+	
+		if(result.hasErrors()) {
+			return "user/userForm";
+		}
 		
 		String viewName = "";
 		
@@ -182,40 +282,12 @@ public class UserController {
 	* Method 설명 : 사용자 사진 응답 생성
 	*/
 	@RequestMapping("/profile")
-	public void profile(String userId, HttpServletRequest request, HttpServletResponse response) throws IOException {		
+	public String profile(String userId, Model model) throws IOException {		
     	// 사용자 정보(path)를 조회
-		UserVO userVO = userService.getUser(userId);
-			
-		// path정보로 file을 읽어들여서 
-		ServletOutputStream sos = response.getOutputStream();
-		FileInputStream fis = null;
-		String filePath = null;		
-			
-		// 사용자가 업로드한 파일이 존재할 경우 : path
-		if(userVO.getPath() != null) {
+		UserVO userVo = userService.getUser(userId);
+		model.addAttribute("userVo", userVo);
 		
-			filePath = userVO.getPath();
-		
-		} else { // 사용자가 업로드한 파일이 존재하지 않을 경우 : no_image.gif
-			
-			// webapp/img/no_image.gif
-			filePath = request.getServletContext().getRealPath("/img/no_image.gif");
-			
-		}
-			
-		File file = new File(filePath);
-		fis = new FileInputStream(file);
-			
-		int len = 0;
-		byte[] buffer = new byte[512];
-			
-		// response 객체에 스트림으로 써준다
-		while((len=fis.read(buffer, 0, 512)) != -1){
-			sos.write(buffer);
-		}
-			
-		fis.close();
-		sos.close();
+		return "profileView";
 	}
 	
 	
@@ -260,7 +332,7 @@ public class UserController {
 //			session.setAttribute("msg", "수정 되었습니다");
 			redirectAttributes.addFlashAttribute("msg", "수정 되었습니다");
 			redirectAttributes.addAttribute("userId", userVo.getUserId());	// 파라미터를 자동으로 붙여준다
-			return"redirect:/user/user?userId=" + userVo.getUserId(); 
+			return"redirect:/user/user"; 
 		} else {
 			return userModify(userVo.getUserId(), model);
 		}

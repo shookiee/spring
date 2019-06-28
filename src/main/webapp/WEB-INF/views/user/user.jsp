@@ -52,7 +52,7 @@ $(document).ready(function(){
 								<label for="userNm" class="col-sm-2 control-label">사용자
 									사진</label>
 								<div class="col-sm-10">
-									<img src = "${cp }/profile?userId=${userVo.userId }"/>
+									<img src = "${cp }/user/profile?userId=${userVo.userId }"/>
 								</div>
 							</div>
 							
