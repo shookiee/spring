@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import javax.annotation.Resource;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -23,6 +24,7 @@ public class SpringIocStTest extends LogicTestEnv {
 	private IBoardDao boardDao;
 	
 	@Test 
+	@Ignore
 	public void getBoardTest() {
 		/***Given***/
 

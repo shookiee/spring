@@ -13,11 +13,18 @@ import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import kr.or.ddit.config.spring.ApplicationDatasource_dev;
+import kr.or.ddit.config.spring.ApplicationTransaction;
+import kr.or.ddit.config.spring.RootContext;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath:kr/or/ddit/config/spring/root-context.xml", 
-											 "classpath:kr/or/ddit/config/spring/application-transaction.xml",
-											 "classpath:kr/or/ddit/config/spring/application-datasource-dev.xml"})
+//@ContextConfiguration({"classpath:kr/or/ddit/config/spring/root-context.xml", 
+//											 "classpath:kr/or/ddit/config/spring/application-transaction.xml",
+//											 "classpath:kr/or/ddit/config/spring/application-datasource-dev.xml"})
+@ContextConfiguration( classes = { RootContext.class
+																, ApplicationTransaction.class
+																, ApplicationDatasource_dev.class } )
 public class LogicTestEnv {
 	@Resource(name="datasource")
 	private DataSource datasource;
