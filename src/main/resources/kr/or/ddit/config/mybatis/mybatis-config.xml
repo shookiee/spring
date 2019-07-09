@@ -10,6 +10,8 @@
 		<typeAlias alias="lprodVo" type="kr.or.ddit.lprod.model.LprodVO"/>
 		<typeAlias alias="prodVo" type="kr.or.ddit.prod.model.ProdVO"/>
 		<typeAlias alias="buyerVo" type="kr.or.ddit.buyer.model.BuyerVO"/>
+		<typeAlias alias="cycleVo" type="kr.or.ddit.yogult.model.CycleVO"/>
+		<typeAlias alias="dailyVo" type="kr.or.ddit.yogult.model.DailyVO"/>
 	</typeAliases>
 
 
@@ -18,6 +20,7 @@
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/lprod.xml" />
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/prod.xml" />
 		<mapper resource="kr/or/ddit/config/mybatis/mapper/buyer.xml" />
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/batch.xml" />
 	</mappers>
 
 </configuration>
